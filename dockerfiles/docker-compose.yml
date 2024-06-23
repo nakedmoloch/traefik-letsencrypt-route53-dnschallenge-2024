@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks: 
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - TZ=America/Argentina
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=XXXXXX #--put TOKEN access ID
+      - AWS_SECRET_ACCESS_KEY=XXXXXX #--put TOKEN access password
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/traefik/dockervolumes/traefik.yml:/traefik.yml:ro
+      - /opt/traefik/dockervolumes/acme.json:/acme.json
+      - /opt/traefik/dockervolumes/config.yml:/config.yml:ro
+      - /opt/traefik/dockervolumes/logs:/var/log/traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.domain.com`)" #--put custom domain
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:XXXXXX" #--create a password using "echo $(htpasswd -nb "admin" "password") | sed -e s/\\$/\\$\\$/g"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.domain.com`)" #--put custom domain
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=route53" #--specify DNS service
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=domain.com" #--put custom domain
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.domain.com" #--put custom domain
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+networks:
+  proxy:
+    external: true
