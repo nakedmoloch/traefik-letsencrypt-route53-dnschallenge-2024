@@ -11,10 +11,10 @@
 
 ## Table of contents
 
-1. [Preparing the 'docker-compose.yml' file](src/branch/main/README.md)
-2. [Setting up a local DNS record](src/branch/main/README.md)
-3. [Publishing a service to the Internet](src/branch/main/README.md)
-4. [Credits and acknowledgements](src/branch/main/README.md)
+1. [Preparing the 'docker-compose.yml' file](https://github.com/nakedmoloch/traefik-letsencrypt-route53-dnschallenge-2024/blob/main/README.md)
+2. [Setting up a local DNS record](https://github.com/nakedmoloch/traefik-letsencrypt-route53-dnschallenge-2024/blob/main/README.md)
+3. [Publishing a service to the Internet](https://github.com/nakedmoloch/traefik-letsencrypt-route53-dnschallenge-2024/blob/main/README.md)
+4. [Credits and acknowledgements](https://github.com/nakedmoloch/traefik-letsencrypt-route53-dnschallenge-2024/blob/main/README.md)
 
 ## Prerequisites
 
