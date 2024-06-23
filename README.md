@@ -116,6 +116,10 @@ Now, under *IAM* > *Users* > *certresolver@iam*, an access key 1 would be create
 After customizing the **docker-compose.yml** file, go ahead and run on the same directory:
 
 ```sh
+$ docker network create proxy
+```
+
+```sh
 $ docker-compose up -d
 ```
 
