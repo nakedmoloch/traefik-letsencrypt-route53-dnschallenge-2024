@@ -217,5 +217,8 @@ https://github.com/riogezz/traefik-docker
 iTayB
 https://stackoverflow.com/questions/47835576/how-can-i-use-route-53-as-the-dns-challenge-for-lets-encrypt-in-traefik
 
+_az
+https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438
+
 theogravity
 https://forum.opnsense.org/index.php?topic=8783.0
